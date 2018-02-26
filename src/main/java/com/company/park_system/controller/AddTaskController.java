@@ -59,7 +59,11 @@ public class AddTaskController extends HttpServlet {
         writer.println(userLogin);
         writer.println((plantName));
         writer.println(taskType);
-        Task task = new Task();
+        Task task = new Task.TaskBuilder()
+                .userLogin(userLogin)
+                .plantName(plantName)
+                .type(taskType)
+                .build();
         task.setUserLogin(userLogin);
         task.setPlantName(plantName);
         task.setType(taskType);

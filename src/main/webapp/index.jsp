@@ -10,30 +10,39 @@
 <html>
 <head>
     <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/park_system.css">
 </head>
 <body>
-<c:if test="${sessionScope.user != null}">
-    <jsp:forward page="jsp/home.jsp"/>
-</c:if>
-<h1 class="header">Welcome to the Park system!</h1>
-<form name="loginForm" method="POST" action="home">
-    <fieldset class="account">
-        <legend>Authorization form:</legend>
-        <label for="login">Login:</label>
-        <br/>
-        <input type="text" id="login" name="login" placeholder="Enter your login..."/>
-        <br/>
-        <label for="password">Password:</label>
-        <br/>
-        <input id="password" type="password" name="password" placeholder="Enter your password..."/>
-        <br/>
-        <br/>
-        <input type="submit" value="Sign in"/>
-    </fieldset>
-</form>
-${errorLoginPassMessage}
-<p>Don't have an account?</p>
-<a href="registration">Sign up</a>
+<div class="container">
+    <c:if test="${sessionScope.user != null}">
+        <jsp:forward page="jsp/home.jsp"/>
+    </c:if>
+    <h1 class="header">Welcome to the Park system!</h1>
+    <form action="home" method="POST">
+        <div class="row">
+            <div class="form-group col-4">
+                <label for="login">Login:</label>
+                <input type="text" class="form-control" id="login" name="login" placeholder="Enter your login..."/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password"
+                       placeholder="Enter your password..."/>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-success" value="Sign in"/>
+        <input type="reset" class="btn btn-success" value="Reset"/>
+    </form>
+    <c:if test="${errorLoginPassMessage ne null}">
+        <div class="text-danger">${errorLoginPassMessage}</div>
+    </c:if>
+    <p>Don't have an account?</p>
+    <a href="registration">Sign up</a>
+</div>
 </body>
 </html>

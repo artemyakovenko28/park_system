@@ -5,13 +5,10 @@ public class User {
     private String password;
     private String status;
 
-    public User() {
-    }
-
-    public User(String login, String password, String status) {
-        this.login = login;
-        this.password = password;
-        this.status = status;
+    private User(UserBuilder builder) {
+        this.login = builder.login;
+        this.password = builder.password;
+        this.status = builder.status;
     }
 
     public String getLogin() {
@@ -36,6 +33,34 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public static final class UserBuilder {
+        private String login;
+        private String password;
+        private String status;
+
+        public UserBuilder() {
+        }
+
+        public UserBuilder login(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder status(String status) {
+            this.status = status;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 
     @Override

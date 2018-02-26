@@ -87,10 +87,11 @@ public class UserDaoJdbc implements UserDao {
             rs = stmt.executeQuery();
             List<User> foresters = new ArrayList<>();
             while (rs.next()) {
-                User user = new User();
-                user.setLogin(rs.getString("login"));
-                user.setPassword(rs.getString("password"));
-                user.setStatus(rs.getString("status"));
+                User user = new User.UserBuilder()
+                        .login(rs.getString("login"))
+                        .password(rs.getString("password"))
+                        .status(rs.getString("status"))
+                        .build();
                 foresters.add(user);
             }
             return foresters;

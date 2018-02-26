@@ -8,17 +8,13 @@ public class Task {
     private String foresterStatus;
     private String ownerStatus;
 
-    public Task() {
-    }
-
-    public Task(int id, String userLogin, String plantName,
-                String type, String foresterStatus, String ownerStatus) {
-        this.id = id;
-        this.userLogin = userLogin;
-        this.plantName = plantName;
-        this.type = type;
-        this.foresterStatus = foresterStatus;
-        this.ownerStatus = ownerStatus;
+    private Task(TaskBuilder builder) {
+        this.id = builder.id;
+        this.userLogin = builder.userLogin;
+        this.plantName = builder.plantName;
+        this.type = builder.type;
+        this.foresterStatus = builder.foresterStatus;
+        this.ownerStatus = builder.ownerStatus;
     }
 
     public int getId() {
@@ -67,6 +63,52 @@ public class Task {
 
     public void setOwnerStatus(String ownerStatus) {
         this.ownerStatus = ownerStatus;
+    }
+
+    public static class TaskBuilder {
+        private int id;
+        private String userLogin;
+        private String plantName;
+        private String type;
+        private String foresterStatus;
+        private String ownerStatus;
+
+        public TaskBuilder() {
+        }
+
+        public TaskBuilder id(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public TaskBuilder userLogin(String userLogin) {
+            this.userLogin = userLogin;
+            return this;
+        }
+
+        public TaskBuilder plantName(String plantName) {
+            this.plantName = plantName;
+            return this;
+        }
+
+        public TaskBuilder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public TaskBuilder foresterStatus(String foresterStatus) {
+            this.foresterStatus = foresterStatus;
+            return this;
+        }
+
+        public TaskBuilder ownerStatus(String ownerStatus) {
+            this.ownerStatus = ownerStatus;
+            return this;
+        }
+
+        public Task build() {
+            return new Task(this);
+        }
     }
 
     @Override

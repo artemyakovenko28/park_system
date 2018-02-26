@@ -40,9 +40,10 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDao userDao = daoFactory.getUserDao();
 
-        User user = new User();
-        user.setLogin(req.getParameter(PARAM_LOGIN));
-        user.setPassword(req.getParameter(PARAM_PASSWORD));
+        User user = new User.UserBuilder()
+                .login(req.getParameter(PARAM_LOGIN))
+                .password(req.getParameter(PARAM_PASSWORD))
+                .build();
 
         try {
             if (userDao.validateUser(user)) {

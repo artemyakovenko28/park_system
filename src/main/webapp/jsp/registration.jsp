@@ -10,51 +10,53 @@
 <html>
 <head>
     <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/park_system.css">
 </head>
 <body>
-<h1 class="header">Registration</h1>
-<form name="registrationForm" method="POST" action="registration">
-    <fieldset class="account center">
-        <legend>Registration form:</legend>
-        <table>
-            <tr>
-                <td><label for="login">Login:</label></td>
-                <td><input type="text" id="login" name="login" placeholder="Enter your login..."></td>
-            </tr>
-            <tr>
-                <td><label for="password">Password:</label></td>
-                <td><input id="password" type="text" name="password" placeholder="Enter your password..."></td>
-            </tr>
-            <tr>
-                <td><label for="status">Status:</label></td>
-                <td>
-                    <select id="status" name="status">
-                        <option value="owner">Owner</option>
-                        <option value="forester">Forester</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <br/>
-        <input type="submit" value="Sign up">
-    </fieldset>
-    <c:if test="${requestScope.emptyLogin != null}">
-        <p>${emptyLogin}</p>
-    </c:if>
-    <c:if test="${requestScope.emptyPassword != null}">
-        <p>${emptyPassword}</p>
-    </c:if>
-    <c:if test="${requestScope.emptyStatus != null}">
-        <p>${emptyStatus}</p>
-    </c:if>
-    <c:if test="${requestScope.userExists != null}">
-        <p>${userExists}</p>
-    </c:if>
-    <c:if test="${requestScope.registrationCompleted != null}">
-        <p>${registrationCompleted}</p>
-    </c:if>
-</form>
-<a href="../index.jsp">Sign in</a>
+<div class="container">
+    <h1 class="header">Registration</h1>
+    <form action="registration" method="POST">
+        <div class="row">
+            <div class="form-group col-4">
+                <label for="login">Login:</label>
+                <input type="text" id="login" name="login" placeholder="Enter your login...">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">
+                <label for="password">Password:</label>
+                <input id="password" type="text" name="password" placeholder="Enter your password...">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col4">
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="owner">Owner</option>
+                    <option value="forester">Forester</option>
+                </select>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-success" value="Sign up">
+        <c:if test="${requestScope.emptyLogin != null}">
+            <p>${emptyLogin}</p>
+        </c:if>
+        <c:if test="${requestScope.emptyPassword != null}">
+            <p class="text-danger">${emptyPassword}</p>
+        </c:if>
+        <c:if test="${requestScope.emptyStatus != null}">
+            <p class="text-danger">${emptyStatus}</p>
+        </c:if>
+        <c:if test="${requestScope.userExists != null}">
+            <p class="text-danger">${userExists}</p>
+        </c:if>
+        <c:if test="${requestScope.registrationCompleted != null}">
+            <p class="text-danger">${registrationCompleted}</p>
+        </c:if>
+    </form>
+    <a href="../index.jsp">Sign in</a>
+</div>
 </body>
 </html>

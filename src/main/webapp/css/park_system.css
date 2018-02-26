@@ -3,10 +3,31 @@ body {
     font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
-table, th, td {
-    border: 1px solid black;
+.center {
+    text-align: center;
 }
 
+.table-park {
+    width: 50%;
+    margin: auto;
+    float: none;
+}
+
+tr, thead {
+    border: 1px solid black;
+    padding: 12px;
+}
+
+td {
+    padding: 12px;
+}
+
+th {
+    padding: 12px;
+    text-align: left;
+    background-color: green;
+    color: white;
+}
 .header {
     text-align: center;
     color: darkgreen;
@@ -16,7 +37,11 @@ table, th, td {
     width: 250px;
 }
 
-.center {
-    text-align-all: center;
+.btn-success {
+    background-color: green;
+}
 
+.btn-success:hover {
+    background-color: darkgreen;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }

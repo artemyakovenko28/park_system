@@ -19,7 +19,10 @@ public class Test {
         PlantDao plantDao = daoFactory.getPlantDao();
 
         // Test UserDao
-        User user = new User();
+        User user = new User.UserBuilder()
+                .login("owner1")
+                .password("owner1")
+                .build();
         user.setLogin("owner1");
         user.setPassword("owner1");
         System.out.println(userDao.validateUser(user));

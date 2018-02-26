@@ -10,40 +10,46 @@
 <html>
 <head>
     <title>Personal tasks</title>
-    <link rel="stylesheet" type="text/css" href="../css/park_system.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/park_system.css">
 </head>
 <body>
-<h1 class="header">Personal tasks</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Plant's name</th>
-        <th>Type</th>
-        <th>Status</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <jsp:useBean id="personalTasks" scope="request" type="java.util.List"/>
-    <c:forEach items="${personalTasks}" var="personalTask">
+<div class="container">
+    <h1 class="header">Personal tasks</h1>
+    <table class="table-park">
+        <thead>
         <tr>
-            <td>${personalTask.plantName}</td>
-            <td>${personalTask.type}</td>
-            <td>${personalTask.foresterStatus}</td>
-            <td>
-                <form action="completeTask" method="post">
-                    <input type="hidden" name="taskId" value="${personalTask.id}">
-                    <input type="submit" value="Complete">
-                </form>
-            </td>
+            <th>Plant's name</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th></th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<br/>
-<a href="home">Back</a>
-<br/>
-<a href="logout">Log out</a>
-<br/>
+        </thead>
+        <tbody>
+        <c:forEach items="${personalTasks}" var="personalTask">
+            <tr>
+                <td>${personalTask.plantName}</td>
+                <td>${personalTask.type}</td>
+                <td>${personalTask.foresterStatus}</td>
+                <td>
+                    <form action="completeTask" method="post">
+                        <input type="hidden" name="taskId" value="${personalTask.id}">
+                        <input type="submit" value="Complete">
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <br>
+    <p class="text-center">
+        <a href="home">Back</a>
+    </p>
+    <p class="text-center">
+        <a href="logout" class="center">Log out</a>
+    </p>
+</div>
 </body>
 </html>

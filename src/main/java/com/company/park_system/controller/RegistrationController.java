@@ -53,10 +53,11 @@ public class RegistrationController extends HttpServlet {
                     req.setAttribute("userExists", MessageManager.getProperty("message.userExists"));
                     req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);
                 } else {
-                    User user = new User();
-                    user.setLogin(login);
-                    user.setPassword(password);
-                    user.setStatus(status);
+                    User user = new User.UserBuilder()
+                            .login(login)
+                            .password(password)
+                            .status(status)
+                            .build();
                     userDao.registerUser(user);
                     req.setAttribute("registrationCompleted", MessageManager.getProperty("message.registrationCompleted"));
                     req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);

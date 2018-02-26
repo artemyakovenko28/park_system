@@ -6,7 +6,7 @@ public class MessageManager {
     private static ResourceBundle resourceBundle =
             ResourceBundle.getBundle("messages");
 
-    // класс извлекает информацию из файла messages.properties
+    // MessageManager retrieves information from messages.properties
     private MessageManager() {
     }
 

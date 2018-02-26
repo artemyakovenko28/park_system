@@ -29,8 +29,9 @@ public class PlantDaoJdbc implements PlantDao {
             rs = stmt.executeQuery(SELECT_ALL_SQL);
             List<Plant> plants = new ArrayList<>();
             while (rs.next()) {
-                Plant plant = new Plant();
-                plant.setName(rs.getString("name"));
+                Plant plant = new Plant.PlantBuilder()
+                        .name(rs.getString("name"))
+                        .build();
                 plants.add(plant);
             }
             return plants;

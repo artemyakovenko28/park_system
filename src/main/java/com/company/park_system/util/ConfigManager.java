@@ -6,7 +6,7 @@ public class ConfigManager {
     private static ResourceBundle resourceBundle =
             ResourceBundle.getBundle("config");
 
-    // класс извлекает информацию из файла config.properties
+    // ConfigManager retrieves information from config.properties
     private ConfigManager() {
     }
 

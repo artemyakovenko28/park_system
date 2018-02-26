@@ -41,13 +41,14 @@ public class TaskDaoJdbc implements TaskDao {
             rs = stmt.executeQuery(sql);
             List<Task> tasks = new ArrayList<>();
             while (rs.next()) {
-                Task task = new Task();
-                task.setId(rs.getInt("id"));
-                task.setUserLogin(rs.getString("userLogin"));
-                task.setPlantName(rs.getString("plantName"));
-                task.setType(rs.getString("type"));
-                task.setForesterStatus(rs.getString("foresterStatus"));
-                task.setOwnerStatus(rs.getString("ownerStatus"));
+                Task task = new Task.TaskBuilder()
+                        .id(rs.getInt("id"))
+                        .userLogin(rs.getString("userLogin"))
+                        .plantName(rs.getString("plantName"))
+                        .type(rs.getString("type"))
+                        .foresterStatus(rs.getString("foresterStatus"))
+                        .ownerStatus(rs.getString("ownerStatus"))
+                        .build();
                 tasks.add(task);
             }
             return tasks;
@@ -127,13 +128,14 @@ public class TaskDaoJdbc implements TaskDao {
             rs = stmt.executeQuery();
             List<Task> personalTasks = new ArrayList<>();
             while (rs.next()) {
-                Task task = new Task();
-                task.setId(rs.getInt("id"));
-                task.setUserLogin(rs.getString("userLogin"));
-                task.setPlantName(rs.getString("plantName"));
-                task.setType(rs.getString("type"));
-                task.setForesterStatus(rs.getString("foresterStatus"));
-                task.setOwnerStatus(rs.getString("ownerStatus"));
+                Task task = new Task.TaskBuilder()
+                        .id(rs.getInt("id"))
+                        .userLogin(rs.getString("userLogin"))
+                        .plantName(rs.getString("plantName"))
+                        .type(rs.getString("type"))
+                        .foresterStatus(rs.getString("foresterStatus"))
+                        .ownerStatus(rs.getString("ownerStatus"))
+                        .build();
                 personalTasks.add(task);
             }
             return personalTasks;
