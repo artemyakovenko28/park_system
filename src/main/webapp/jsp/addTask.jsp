@@ -16,52 +16,46 @@
     <link rel="stylesheet" type="text/css" href="../css/park_system.css">
 </head>
 <body>
-<h1 class="header">Taks adding</h1>
-<form action="addTask" method="post">
-    <table>
-        <thead>
-        <tr>
-            <th><label for="userLogin">Forester</label></th>
-            <th><label for="plantName">Plant</label></th>
-            <th><label for="taskType">Task</label></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>
-                <select name="userLogin" id="userLogin">
+<div class="container">
+    <h1 class="header">Task adding</h1>
+    <form action="addTask" method="post">
+        <div class="form-row">
+            <div class="form-group col-2">
+                <label for="userLogin">Forester</label>
+                <select class="form-control" name="userLogin" id="userLogin">
                     <c:forEach items="${foresters}" var="forester">
                         <option value="${forester.login}">${forester.login}</option>
                     </c:forEach>
                 </select>
-            </td>
-            <td>
-                <select name="plantName" id="plantName">
+            </div>
+            <div class="form-group col-2">
+                <label for="plantName">Plant</label>
+                <select class="form-control" name="plantName" id="plantName">
                     <c:forEach items="${plants}" var="plant">
                         <option value="${plant.name}">${plant.name}</option>
                     </c:forEach>
                 </select>
-            </td>
-            <td>
-                <select name="taskType" id="taskType">
+            </div>
+            <div class="form-group col-2">
+                <label for="taskType">Task</label>
+                <select class="form-control" name="taskType" id="taskType">
                     <c:forEach items="${taskTypes}" var="taskType">
                         <option value="${taskType}">${taskType}</option>
                     </c:forEach>
                 </select>
-            </td>
-            <td>
-                <input type="submit" value="Add task">
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    ${taskAdded}
-    <br/>
-    <a href="home">Back</a>
-    <br/>
-    <a href="logout">Log out</a>
-    <br/>
-</form>
+            </div>
+            <div class="col-auto" style="margin-top: 10px">
+                <input type="submit" class="btn btn-success" value="Add task">
+            </div>
+            ${taskAdded}
+        </div>
+        <p class="text-center">
+            <a href="home" class="btn btn-success">Back</a>
+        </p>
+        <p class="text-center">
+            <a href="logout" class="btn btn-success">Log out</a>
+        </p>
+    </form>
+</div>
 </body>
 </html>

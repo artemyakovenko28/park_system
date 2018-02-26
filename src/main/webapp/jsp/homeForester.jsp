@@ -16,11 +16,15 @@
     <link rel="stylesheet" type="text/css" href="../css/park_system.css">
 </head>
 <body>
+<div class="container">
     <h1 class="header">Forester's home page</h1>
-    <h2>Hello, ${user.login}!</h2>
-    <a href="personalTasks">Personal tasks</a>
-    <br/>
-    <a href="logout">Log out</a>
-    <br/>
+    <h3 class="text-center">Hello, ${user.login}!</h3>
+    <p class="text-center">
+        <a href="personalTasks" class="btn btn-success">Personal tasks</a>
+    </p>
+    <p class="text-center">
+        <a href="logout" class="btn btn-success">Log out</a>
+    </p>
+</div>
 </body>
 </html>

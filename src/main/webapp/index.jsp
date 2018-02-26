@@ -17,8 +17,11 @@
 </head>
 <body>
 <div class="container">
-    <c:if test="${sessionScope.user != null}">
-        <jsp:forward page="jsp/home.jsp"/>
+    <c:if test="${sessionScope.user eq 'forester'}">
+        <jsp:forward page="jsp/homeForester.jsp"/>
+    </c:if>
+    <c:if test="${sessionScope.user eq 'owner'}">
+        <jsp:forward page="jsp/homeOwner.jsp"/>
     </c:if>
     <h1 class="header">Welcome to the Park system!</h1>
     <form action="home" method="POST">
@@ -35,14 +38,16 @@
                        placeholder="Enter your password..."/>
             </div>
         </div>
-        <input type="submit" class="btn btn-success" value="Sign in"/>
+        <input type="submit" class="btn btn-success" value="Log in"/>
         <input type="reset" class="btn btn-success" value="Reset"/>
     </form>
     <c:if test="${errorLoginPassMessage ne null}">
         <div class="text-danger">${errorLoginPassMessage}</div>
     </c:if>
     <p>Don't have an account?</p>
-    <a href="registration">Sign up</a>
+    <p>
+        <a href="registration" class="btn btn-success">Register</a>
+    </p>
 </div>
 </body>
 </html>

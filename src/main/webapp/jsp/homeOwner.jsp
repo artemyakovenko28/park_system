@@ -16,15 +16,21 @@
     <link rel="stylesheet" type="text/css" href="../css/park_system.css">
 </head>
 <body>
-<h1 class="header">Owner's home page</h1>
-<h2>Hello, ${user.login}</h2>
-<a href="addTask">Add task</a>
-<br/>
-<a href="completedTasks">Completed tasks</a>
-<br/>
-<a href="allTasks">All tasks</a>
-<br/>
-<a href="logout">Log out</a>
-<br/>
+<div class="container">
+    <h1 class="header">Owner's home page</h1>
+    <h4 class="text-center"><b>Hello, ${user.login}</b></h4>
+    <p class="text-center">
+        <a href="addTask" class="btn btn-success">Add task</a>
+    </p>
+    <p class="text-center">
+        <a href="completedTasks" class="btn btn-success">Completed tasks</a>
+    </p>
+    <p class="text-center">
+        <a href="allTasks" class="btn btn-success">All tasks</a>
+    </p>
+    <p class="text-center">
+        <a href="logout" class="btn btn-success">Log out</a>
+    </p>
+</div>
 </body>
 </html>

@@ -36,7 +36,7 @@
                 <td>
                     <form action="completeTask" method="post">
                         <input type="hidden" name="taskId" value="${personalTask.id}">
-                        <input type="submit" value="Complete">
+                        <input type="submit" class="btn btn-success" value="Complete">
                     </form>
                 </td>
             </tr>
@@ -45,10 +45,10 @@
     </table>
     <br>
     <p class="text-center">
-        <a href="home">Back</a>
+        <a href="home" class="btn btn-success">Back</a>
     </p>
     <p class="text-center">
-        <a href="logout" class="center">Log out</a>
+        <a href="logout" class="btn btn-success">Log out</a>
     </p>
 </div>
 </body>
