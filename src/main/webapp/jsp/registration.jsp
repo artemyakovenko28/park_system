@@ -22,35 +22,26 @@
         <div class="form-group col-4">
             <label for="login">Login:</label>
             <input type="text" class="form-control" id="login" name="login" placeholder="Enter your login...">
+            <div class="text-danger">${errorMap.login}</div>
         </div>
         <div class="form-group col-4">
             <label for="password">Password:</label>
-            <input id="password" class="form-control" type="password" name="password" placeholder="Enter your password...">
+            <input id="password" class="form-control" type="password" name="password"
+                   placeholder="Enter your password...">
+            <div class="text-danger">${errorMap.password}</div>
         </div>
         <div class="form-group col-4">
             <label for="status">Status:</label>
             <select class="form-control" id="status" name="status">
+                <option selected>Choose status...</option>
                 <option value="owner">Owner</option>
                 <option value="forester">Forester</option>
             </select>
+            <div class="text-danger">${errorMap.status}</div>
         </div>
         <input type="submit" class="btn btn-success" value="Register">
-        <c:if test="${requestScope.emptyLogin != null}">
-            <p class="text-danger">${emptyLogin}</p>
-        </c:if>
-        <c:if test="${requestScope.emptyPassword != null}">
-            <p class="text-danger">${emptyPassword}</p>
-        </c:if>
-        <c:if test="${requestScope.emptyStatus != null}">
-            <p class="text-danger">${emptyStatus}</p>
-        </c:if>
-        <c:if test="${requestScope.userExists != null}">
-            <p class="text-danger">${userExists}</p>
-        </c:if>
-        <c:if test="${requestScope.registrationCompleted != null}">
-            <p class="text-danger">${registrationCompleted}</p>
-        </c:if>
     </form>
+    <p style="color: green">${registrationCompleted}</p>
     <p>
         <a href="../index.jsp" class="btn btn-success">Log in</a>
     </p>

@@ -6,6 +6,8 @@ import com.company.park_system.dao.factory.DaoFactoryFactory;
 import com.company.park_system.entity.User;
 import com.company.park_system.util.ConfigManager;
 import com.company.park_system.util.MessageManager;
+import com.company.park_system.validator.UserValidator;
+import com.company.park_system.validator.Validator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,11 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
 
 @WebServlet(name = "registrationController", urlPatterns = "/registration")
 public class RegistrationController extends HttpServlet {
 
     private DaoFactory daoFactory = DaoFactoryFactory.createDaoFactory();
+
+    private Validator<User> validator = new UserValidator();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,24 +33,19 @@ public class RegistrationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDao userDao = daoFactory.getUserDao();
+
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String status = req.getParameter("status");
 
-        boolean emptyField = false;
-        if (login == null || login.equals("")) {
-            req.setAttribute("emptyLogin", MessageManager.getProperty("message.emptyLogin"));
-            emptyField = true;
-        }
-        if (password == null || password.equals("")) {
-            req.setAttribute("emptyPassword", MessageManager.getProperty("message.emptyPassword"));
-            emptyField = true;
-        }
-        if (status == null || status.equals("")) {
-            req.setAttribute("emptyPassword", MessageManager.getProperty("message.emptyStatus"));
-            emptyField = true;
-        }
-        if (emptyField) {
+        User user = new User.UserBuilder()
+                .login(login)
+                .password(password)
+                .status(status)
+                .build();
+        Map<String, String> errorMap = validator.validate(user);
+        if (!errorMap.isEmpty()) {
+            req.setAttribute("errorMap", errorMap);
             req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);
         } else {
             try {
@@ -53,11 +53,6 @@ public class RegistrationController extends HttpServlet {
                     req.setAttribute("userExists", MessageManager.getProperty("message.userExists"));
                     req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);
                 } else {
-                    User user = new User.UserBuilder()
-                            .login(login)
-                            .password(password)
-                            .status(status)
-                            .build();
                     userDao.registerUser(user);
                     req.setAttribute("registrationCompleted", MessageManager.getProperty("message.registrationCompleted"));
                     req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);
