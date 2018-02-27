@@ -6,6 +6,7 @@ import com.company.park_system.dao.UserDao;
 import com.company.park_system.dao.factory.DaoFactory;
 import com.company.park_system.dao.factory.DaoFactoryFactory;
 import com.company.park_system.entity.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,21 +19,21 @@ import java.sql.SQLException;
 
 @WebServlet(name = "loginController", urlPatterns = "/home")
 public class LoginController extends HttpServlet {
-    private static final String PARAM_LOGIN = "login";
-    private static final String PARAM_PASSWORD = "password";
 
     private DaoFactory daoFactory = DaoFactoryFactory.createDaoFactory();
+
+    private static final Logger logger = Logger.getLogger(LoginController.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(SessionAttributes.USER);
         String status = user.getStatus();
         if (status.equals("forester")) {
-            req.getRequestDispatcher(ConfigManager.getProperty("path.page.homeForester")).forward(req, resp);
+            req.getRequestDispatcher(ConfigManager.getProperty("page.homeForester")).forward(req, resp);
         }
         if (status.equals("owner")) {
-            req.getRequestDispatcher(ConfigManager.getProperty("path.page.homeOwner")).forward(req, resp);
+            req.getRequestDispatcher(ConfigManager.getProperty("page.homeOwner")).forward(req, resp);
         }
     }
 
@@ -41,8 +42,8 @@ public class LoginController extends HttpServlet {
         UserDao userDao = daoFactory.getUserDao();
 
         User user = new User.UserBuilder()
-                .login(req.getParameter(PARAM_LOGIN))
-                .password(req.getParameter(PARAM_PASSWORD))
+                .login(req.getParameter("login"))
+                .password(req.getParameter("password"))
                 .build();
 
         try {
@@ -51,19 +52,19 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("user", user);
                 String status = user.getStatus();
                 if (status.equals("forester")) {
-                    req.getRequestDispatcher(ConfigManager.getProperty("path.page.homeForester")).forward(req, resp);
+                    req.getRequestDispatcher(ConfigManager.getProperty("page.homeForester")).forward(req, resp);
                 }
                 if (status.equals("owner")) {
-                    req.getRequestDispatcher(ConfigManager.getProperty("path.page.homeOwner")).forward(req, resp);
+                    req.getRequestDispatcher(ConfigManager.getProperty("page.homeOwner")).forward(req, resp);
                 }
             } else {
                 req.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
-                req.getRequestDispatcher(ConfigManager.getProperty("path.page.index")).forward(req, resp);
+                req.getRequestDispatcher(ConfigManager.getProperty("page.index")).forward(req, resp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             // установка страницы c cообщением об ошибке
-            String page = ConfigManager.getProperty("path.page.index");
+            String page = ConfigManager.getProperty("page.index");
             req.setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
             resp.sendRedirect(req.getContextPath() + page);
         }

@@ -4,6 +4,7 @@ import com.company.park_system.dao.PlantDao;
 import com.company.park_system.entity.Plant;
 import com.company.park_system.util.JdbcUtils;
 import com.company.park_system.util.connectionFactory.ConnectionFactoryFactory;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlantDaoJdbc implements PlantDao {
+    private static final Logger logger = Logger.getLogger(PlantDaoJdbc.class);
+
     private static final String SELECT_ALL_SQL = "SELECT name FROM plants";
 
     private Connection getConnection() throws SQLException {
@@ -34,6 +37,7 @@ public class PlantDaoJdbc implements PlantDao {
                         .build();
                 plants.add(plant);
             }
+            logger.info("Select all plants: " + plants);
             return plants;
         } finally {
             JdbcUtils.closeQuietly(rs, stmt, conn);

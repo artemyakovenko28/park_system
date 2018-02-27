@@ -4,12 +4,16 @@ import com.company.park_system.dao.TaskDao;
 import com.company.park_system.entity.Task;
 import com.company.park_system.util.JdbcUtils;
 import com.company.park_system.util.connectionFactory.ConnectionFactoryFactory;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDaoJdbc implements TaskDao {
+
+    private static final Logger logger = Logger.getLogger(TaskDaoJdbc.class);
+
     private static final String INSERT_TASK_SQL = "INSERT INTO tasks (userLogin, plantName, type, foresterStatus, ownerStatus) " +
             "VALUES (?, ?, ?, ?, ?)";
 
@@ -51,6 +55,7 @@ public class TaskDaoJdbc implements TaskDao {
                         .build();
                 tasks.add(task);
             }
+            logger.info("Select tasks: " + tasks);
             return tasks;
         } finally {
             JdbcUtils.closeQuietly(rs, stmt, conn);
@@ -70,6 +75,7 @@ public class TaskDaoJdbc implements TaskDao {
             stmt.setString(4, "undone");
             stmt.setString(5, "undone");
             stmt.executeUpdate();
+            logger.info("Task added: " + task);
         } finally {
             JdbcUtils.closeQuietly(stmt, conn);
         }
@@ -92,6 +98,7 @@ public class TaskDaoJdbc implements TaskDao {
             while (rs.next()) {
                 taskTypes.add(rs.getString("name"));
             }
+            logger.info("Select task types: " + taskTypes);
             return taskTypes;
         } finally {
             JdbcUtils.closeQuietly(rs, stmt, conn);
@@ -111,6 +118,7 @@ public class TaskDaoJdbc implements TaskDao {
             stmt = conn.prepareStatement(DELETE_TASK_SQL);
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            logger.info("Task closed, task id = " + id);
         } finally {
             JdbcUtils.closeQuietly(stmt, conn);
         }
@@ -138,6 +146,7 @@ public class TaskDaoJdbc implements TaskDao {
                         .build();
                 personalTasks.add(task);
             }
+            logger.info("Select personal tasks: " + personalTasks);
             return personalTasks;
         } finally {
             JdbcUtils.closeQuietly(rs, stmt, conn);
@@ -152,6 +161,7 @@ public class TaskDaoJdbc implements TaskDao {
             stmt = conn.prepareStatement(UPDATE_FORESTER_TASK_STATUS_SQL);
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            logger.info("Task completed, task id = " + id);
         } finally {
             JdbcUtils.closeQuietly(stmt, conn);
         }

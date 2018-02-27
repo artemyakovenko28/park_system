@@ -17,6 +17,7 @@ import java.util.List;
 
 @WebServlet(name = "completedTaskController", urlPatterns = "/completedTasks")
 public class CompletedTasksController extends HttpServlet {
+
     private DaoFactory daoFactory = DaoFactoryFactory.createDaoFactory();
 
     @Override
@@ -26,7 +27,7 @@ public class CompletedTasksController extends HttpServlet {
         try {
             List<Task> completedTasks = taskDao.getCompletedTasks();
             req.setAttribute("completedTasks", completedTasks);
-            req.getRequestDispatcher(ConfigManager.getProperty("path.page.completedTasks")).forward(req, resp);
+            req.getRequestDispatcher(ConfigManager.getProperty("page.completedTasks")).forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }

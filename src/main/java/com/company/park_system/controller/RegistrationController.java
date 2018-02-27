@@ -8,6 +8,7 @@ import com.company.park_system.util.ConfigManager;
 import com.company.park_system.util.MessageManager;
 import com.company.park_system.validator.UserValidator;
 import com.company.park_system.validator.Validator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,9 +26,11 @@ public class RegistrationController extends HttpServlet {
 
     private Validator<User> validator = new UserValidator();
 
+    private static final Logger logger = Logger.getLogger(RegistrationController.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);
+        req.getRequestDispatcher(ConfigManager.getProperty("page.registration")).forward(req, resp);
     }
 
     @Override
@@ -44,18 +47,19 @@ public class RegistrationController extends HttpServlet {
                 .status(status)
                 .build();
         Map<String, String> errorMap = validator.validate(user);
+        logger.info("Validation of user with login " + user.getLogin() + " completed, errorMap: " + errorMap);
         if (!errorMap.isEmpty()) {
             req.setAttribute("errorMap", errorMap);
-            req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);
+            req.getRequestDispatcher(ConfigManager.getProperty("page.registration")).forward(req, resp);
         } else {
             try {
                 if (userDao.userExists(login)) {
                     req.setAttribute("userExists", MessageManager.getProperty("message.userExists"));
-                    req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);
+                    req.getRequestDispatcher(ConfigManager.getProperty("page.registration")).forward(req, resp);
                 } else {
                     userDao.registerUser(user);
                     req.setAttribute("registrationCompleted", MessageManager.getProperty("message.registrationCompleted"));
-                    req.getRequestDispatcher(ConfigManager.getProperty("path.page.registration")).forward(req, resp);
+                    req.getRequestDispatcher(ConfigManager.getProperty("page.registration")).forward(req, resp);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

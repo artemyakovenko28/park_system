@@ -22,6 +22,7 @@ import java.util.List;
 
 @WebServlet(name = "addTaskController", urlPatterns = "/addTask")
 public class AddTaskController extends HttpServlet {
+
     private DaoFactory daoFactory = DaoFactoryFactory.createDaoFactory();
 
     @Override
@@ -39,7 +40,7 @@ public class AddTaskController extends HttpServlet {
             req.setAttribute("plants", plants);
             req.setAttribute("taskTypes", taskTypes);
 
-            req.getRequestDispatcher(ConfigManager.getProperty("path.page.addTask")).forward(req, resp);
+            req.getRequestDispatcher(ConfigManager.getProperty("page.addTask")).forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,10 +56,6 @@ public class AddTaskController extends HttpServlet {
 //        if (userLogin == null || plantName == null || taskType == null) {
 //            // send redirect -> error page
 //        }
-        PrintWriter writer = resp.getWriter();
-        writer.println(userLogin);
-        writer.println((plantName));
-        writer.println(taskType);
         Task task = new Task.TaskBuilder()
                 .userLogin(userLogin)
                 .plantName(plantName)

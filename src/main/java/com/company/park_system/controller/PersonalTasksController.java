@@ -30,11 +30,11 @@ public class PersonalTasksController extends HttpServlet {
         try {
             List<Task> personalTasks = taskDao.getPersonalTasks(forester.getLogin());
             req.setAttribute("personalTasks", personalTasks);
-            req.getRequestDispatcher(ConfigManager.getProperty("path.page.personalTasks")).forward(req, resp);
+            req.getRequestDispatcher(ConfigManager.getProperty("page.personalTasks")).forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
             // установка страницы c cообщением об ошибке
-            String page = ConfigManager.getProperty("path.page.index");
+            String page = ConfigManager.getProperty("page.index");
             req.setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
             resp.sendRedirect(req.getContextPath() + page);
         }

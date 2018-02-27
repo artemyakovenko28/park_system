@@ -15,6 +15,7 @@ import java.sql.SQLException;
 
 @WebServlet(name = "completeTaskController", urlPatterns = "/completeTask")
 public class CompleteTaskController extends HttpServlet {
+
     private DaoFactory daoFactory = DaoFactoryFactory.createDaoFactory();
 
     @Override

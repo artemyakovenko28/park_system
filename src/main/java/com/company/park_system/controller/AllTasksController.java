@@ -17,6 +17,7 @@ import java.util.List;
 
 @WebServlet(name = "allTasksController", urlPatterns = "/allTasks")
 public class AllTasksController extends HttpServlet {
+
     private DaoFactory daoFactory = DaoFactoryFactory.createDaoFactory();
 
     @Override
@@ -26,7 +27,7 @@ public class AllTasksController extends HttpServlet {
         try {
             List<Task> allTasks = taskDao.getAllTasks();
             req.setAttribute("allTasks", allTasks);
-            req.getRequestDispatcher(ConfigManager.getProperty("path.page.allTasks")).forward(req, resp);
+            req.getRequestDispatcher(ConfigManager.getProperty("page.allTasks")).forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }

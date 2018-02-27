@@ -4,12 +4,16 @@ import com.company.park_system.dao.UserDao;
 import com.company.park_system.entity.User;
 import com.company.park_system.util.JdbcUtils;
 import com.company.park_system.util.connectionFactory.ConnectionFactoryFactory;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJdbc implements UserDao {
+
+    private static final Logger logger = Logger.getLogger(UserDaoJdbc.class);
+
     private static final String INSERT_USER_SQL = "INSERT INTO users (login, password, status) " +
             "VALUES (?, ?, ?)";
 
@@ -33,6 +37,7 @@ public class UserDaoJdbc implements UserDao {
             stmt.setString(2, user.getPassword());
             stmt.setString(3, user.getStatus());
             stmt.executeUpdate();
+            logger.info("User registered: " + user);
         } finally {
             JdbcUtils.closeQuietly(stmt, conn);
         }
@@ -50,8 +55,12 @@ public class UserDaoJdbc implements UserDao {
             rs = stmt.executeQuery();
             if (rs.next()) {
                 user.setStatus(rs.getString("status"));
+                logger.info("User with login '" + user.getLogin() +
+                        "' and password '" + user.getPassword() + "' logged in");
                 return true;
             }
+            logger.info("No user for login '" + user.getLogin() +
+                    "' and password '" + user.getPassword() + "'");
             return false;
         } finally {
             JdbcUtils.closeQuietly(conn, stmt, rs);
@@ -68,6 +77,7 @@ public class UserDaoJdbc implements UserDao {
             stmt.setString(1, login);
             rs = stmt.executeQuery();
             if (rs.next()) {
+                logger.info("User with login " + login + "already exists");
                 return true;
             }
             return false;
@@ -94,6 +104,7 @@ public class UserDaoJdbc implements UserDao {
                         .build();
                 foresters.add(user);
             }
+            logger.info("Select all foresters: " + foresters);
             return foresters;
         } finally {
             JdbcUtils.closeQuietly(rs, stmt, conn);
